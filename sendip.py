@@ -19,7 +19,7 @@ password = 'gmailpass9' #password for that gmail account
 
 fromaddr = 'pjb.rpi@gmail.com' #address to send from
 toaddr = 'paulbooth46@gmail.com' #address to send IP to
-message = 'RPi\'s address: ' #message that is sent
+message = 'RPi\'s IP address: ' #message that is sent
 ####--[/CONFIGURATION]
 
 #the interface may be wifi and it needs time to initialize
