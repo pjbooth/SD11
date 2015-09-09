@@ -1,2 +1,2 @@
 # This is a sample configuration file
-# release 1
+# release 1.1
