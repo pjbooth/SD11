@@ -1,2 +1,3 @@
 # This is a sample configuration file
 # release 1.1
+# But is this in branch1 or in the master?
