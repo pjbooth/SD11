@@ -1,36 +1,41 @@
 ####--------------------------------------------------------
-#### Name:            SendLocalIP.py
-#### Programmer:      Tony Tosi
-#### Created:         09/10/2012
-#### Purpose:         Send a text message to ashow it's working
+#### Name:            SD11Main.py
+#### Programmer:      Paul Booth
+#### Created:         04/12/2015
+#### Purpose:         Read an IR motion sensor
 ####--------------------------------------------------------
 import time
-import commands
-import re
-import smtplib
+import RPi.GPIO as GPIO
 
-####--[CONFIGURATION]
-server = 'smtp.gmail.com' #smtp server address
-server_port = '587' #port for smtp erver
+## Variables and constants
+delay = 5					# number of seconds delay between readings
+irSensor = 2
+lightSensor = 4
 
-username = 'pjb.rpi@gmail.com' #gmail account
-password = 'gmailpass9' #password for that gmail account
+## Functions
 
-fromaddr = 'pjb.rpi@gmail.com' #address to send from
-toaddr = 'paulbooth46@gmail.com' #address to send IP to
-message = 'RPi SD11 is up and running the main program' #message that is sent
-####--[/CONFIGURATION]
+def printlog(msg)
+	print(msg)
+	
+	
+## Initialise
+printlog("Initialising")
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+GPIO.setup(irSensor,IN)
+GPIO.setup(lightSensor,IN)
 
-headers = ["From: " + fromaddr,
-           "To: " + toaddr,
-           "MIME-Version: 1.0",
-           "Content-Type: text/html"]
-headers = "\r\n".join(headers)
+## Main loop
+printlog("Main loop")
+try:
+	while True:
+		printlog("Reading sensor")
+		s = GPIO.input(irSensor)
+		printlog("InfraRed sensor = " + str(s))
+		time.sleep(delay)
+except KeyboardInterrupt:
+	printlog("Exiting after Ctrl-C")
+	
+	
 
-server = smtplib.SMTP(server + ':' + server_port)  
-server.ehlo()
-server.starttls()  
-server.ehlo()
-server.login(username, password)  
-server.sendmail(fromaddr, toaddr, headers + "\r\n\r\n" +  message)  
-server.quit()
+
