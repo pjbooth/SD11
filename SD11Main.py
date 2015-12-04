@@ -22,8 +22,8 @@ def printlog(msg):
 printlog("Initialising")
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
-GPIO.setup(irSensor,IN)
-GPIO.setup(lightSensor,IN)
+GPIO.setup(irSensor, GPIO.IN)
+GPIO.setup(lightSensor,GPIO.IN)
 
 ## Main loop
 printlog("Main loop")
