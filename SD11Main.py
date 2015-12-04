@@ -14,7 +14,7 @@ lightSensor = 4
 
 ## Functions
 
-def printlog(msg)
+def printlog(msg):
 	print(msg)
 	
 	
