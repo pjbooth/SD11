@@ -10,6 +10,7 @@ import RPi.GPIO as GPIO
 import paho.mqtt.client as paho        #as instructed by http://mosquitto.org/documentation/python/
 import ibmiotf.device
 import psutil
+import math
 
 ## Variables and constants
 delay = 1					# number of seconds delay between readings
@@ -93,7 +94,8 @@ def lightLevel(light_pin):
         reading += 1 
     endtime = time.time() 			# note end time
     total_time = 1000 * (endtime - starttime) 
-    return total_time                           # reading in milliseconds
+	light_level = 72 - (14*math.log(total_time))
+    return light_level                           # subjective light level
 
 ## Initialise 
 printlog("Initialising") 
