@@ -10,11 +10,12 @@ import RPi.GPIO as GPIO
 import paho.mqtt.client as paho        #as instructed by http://mosquitto.org/documentation/python/
 import ibmiotf.device
 import psutil
+import math
 
 ## Variables and constants
 delay = 1					# number of seconds delay between readings
 irSensor = 17
-lightSensor = 4
+lightSensor = 18
 lastState = 0
 thisState = 0
 progname = sys.argv[0]						# name of this program
@@ -83,17 +84,18 @@ def getCPUtemperature():			# Return CPU temperature as a float
 
 
 def lightLevel(light_pin):
-    reading = 0
-    GPIO.setup(pin, GPIO.OUT)
-    GPIO.output(light_pin, GPIO.LOW)
-    time.sleep(0.1)
-    starttime = time.time()			# note start time
-    GPIO.setup(light_pin, GPIO.IN)
-    while (GPIO.input(msr_pin) == GPIO.LOW):
-        reading += 1 
-    endtime = time.time() 			# note end time
-    total_time = 1000 * (endtime - starttime) 
-    return total_time                           # reading in milliseconds
+	reading = 0
+	GPIO.setup(light_pin, GPIO.OUT)
+	GPIO.output(light_pin, GPIO.LOW)
+	time.sleep(0.1)
+	starttime = time.time()			# note start time
+	GPIO.setup(light_pin, GPIO.IN)
+	while (GPIO.input(light_pin) == GPIO.LOW):
+		reading += 1 
+	endtime = time.time() 			# note end time
+	total_time = 1000 * (endtime - starttime) 
+	light_level = 80 - (9.5 * math.log(total_time))
+	return light_level                           # subjective light level
 
 ## Initialise 
 printlog("Initialising") 
@@ -108,12 +110,12 @@ printlog("Main loop")
 try:
 	while True:
 		thisState = GPIO.input(irSensor)
-		printlog(str(thisState))
 		if lastState == 0 and thisState == 1:
 			printlog("SPOTTED MOVEMENT !!!!")
 		elif lastState == 1 and thisState == 0:
 			printlog(" ")
 		lastState = thisState
+		printlog("Movement sensor = " + str(thisState) + ".  Light Level = " + str(lightLevel(lightSensor)))  
 		time.sleep(delay)
 except KeyboardInterrupt:
 	printlog("Exiting after Ctrl-C")
