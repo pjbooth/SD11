@@ -94,7 +94,7 @@ def lightLevel(light_pin):
 		reading += 1 
 	endtime = time.time() 			# note end time
 	total_time = 1000 * (endtime - starttime) 
-	light_level = 72 - (14*math.log(total_time))
+	light_level = 80 - (9.5 * math.log(total_time))
 	return light_level                           # subjective light level
 
 ## Initialise 
