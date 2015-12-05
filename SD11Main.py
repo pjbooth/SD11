@@ -15,13 +15,12 @@ import psutil
 import math
 
 ## Variables and constants
-delay = 1					# number of seconds delay between readings
 irSensor = 17
 lightSensor = 18
 lastState = 0
 thisState = 0
 progname = sys.argv[0]						# name of this program
-version = "2.0"								# allows me to track which release is running
+version = "2.2.5"								# allows me to track which release is running
 interval = 60								# number of seconds between readings (note that ThingSpeak max rate is one update per 15 seconds)
 iotfFile = "/home/pi/SD11IOTF.cfg"
 dateString = '%Y/%m/%d %H:%M:%S'
@@ -138,7 +137,7 @@ try:
 						movement_count += 1								# increment the count of the number of discrete movements sensed in this period
 					lastState = thisState
 					light_count += lightLevel(lightSensor)				# add the latest light level to the cumulative total ffor this period
-					time.sleep(delay)
+					time.sleep(interval)
 				printdata()
 				movement_count = 0
 				light_count = 0
