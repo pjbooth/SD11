@@ -5,6 +5,7 @@
 #### Purpose:         Read an IR motion sensor and light level
 ####--------------------------------------------------------
 import os
+import subprocess
 import sys
 import time, datetime
 import RPi.GPIO as GPIO
