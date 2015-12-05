@@ -22,7 +22,7 @@ lastState = 0
 thisState = 0
 progname = sys.argv[0]						# name of this program
 version = "2.0"								# allows me to track which release is running
-interval = 15								# number of seconds between readings (note that ThingSpeak max rate is one update per 15 seconds)
+interval = 30								# number of seconds between readings (note that ThingSpeak max rate is one update per 15 seconds)
 iotfFile = "/home/pi/SD11IOTF.cfg"
 dateString = '%Y/%m/%d %H:%M:%S'
 mqtt_connected = 0
@@ -67,24 +67,23 @@ def myCommandCallback(cmd):						# callback example from IOTF documentation
 
 	else:
 		printlog("Unsupported command: %s" % cmd.command)
+	return 0
 
 
 def shutdown():
-	GPIO.setmode(GPIO.BCM) 
-	GPIO.cleanup()
 	command = "/usr/bin/sudo /sbin/shutdown -h now"
 	process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
 	output = process.communicate()[0]
 	print output
+	return 0
 
 
 def reboot():
-	GPIO.setmode(GPIO.BCM) 
-	GPIO.cleanup()
 	command = "/usr/bin/sudo /sbin/shutdown -r now"
 	process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
 	output = process.communicate()[0]
 	print output
+	return 0
 
 
                                       
@@ -130,19 +129,15 @@ try:
 		client.commandCallback = myCommandCallback
 
 		try:
-#			printlog("Starting main loop") 
 			while True:
 				while reading_count < loop_limit:
 					reading_count += 1
 					thisState = GPIO.input(irSensor)
 					if lastState == 0 and thisState == 1:
-#						printlog("SPOTTED MOVEMENT !!!!")
 						movement_count += 1								# increment the count of the number of discrete movements sensed in this period
 					lastState = thisState
 					light_count += lightLevel(lightSensor)				# add the latest light level to the cumulative total ffor this period
-#					printlog("Movement sensor = " + str(thisState) + ".  Light Level = " + str(lightLevel(lightSensor)))  
 					time.sleep(delay)
-#				printlog("completed one period")
 				printdata()
 				movement_count = 0
 				light_count = 0
