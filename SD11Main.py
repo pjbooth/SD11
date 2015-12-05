@@ -1,9 +1,10 @@
-#####--------------------------------------------------------
+####--------------------------------------------------------
 #### Name:            SD11Main.py
 #### Programmer:      Paul Booth
 #### Created:         04/12/2015
 #### Purpose:         Read an IR motion sensor and light level
 ####--------------------------------------------------------
+import os
 import sys
 import time, datetime
 import RPi.GPIO as GPIO
@@ -50,7 +51,7 @@ def printdata():
 	cputemp = getCPUtemperature()				# may as well report on various processor stats while we're at it
 	cpupct = float(psutil.cpu_percent())
 	cpumem = float(psutil.virtual_memory().percent)
-	myData = {'date' : datetime.datetime.now().strftime(dateString), 'irState' : movement_count, 'light' : light_average, 'cputemp' : cputemp, 'cpupct' : cpupct, 'cpumem' : cpumem}
+	myData = {'date' : datetime.datetime.now().strftime(dateString), 'movements' : movement_count, 'light' : light_average, 'cputemp' : cputemp, 'cpupct' : cpupct, 'cpumem' : cpumem}
 	vizData = {'d' : myData}
 	client.publishEvent(event="data", msgFormat="json", data=myData)
 
@@ -126,19 +127,19 @@ try:
 		client.commandCallback = myCommandCallback
 
 		try:
-			printlog("Starting main loop") 
-			while True
+#			printlog("Starting main loop") 
+			while True:
 				while reading_count < loop_limit:
 					reading_count += 1
 					thisState = GPIO.input(irSensor)
 					if lastState == 0 and thisState == 1:
-						printlog("SPOTTED MOVEMENT !!!!")
+#						printlog("SPOTTED MOVEMENT !!!!")
 						movement_count += 1								# increment the count of the number of discrete movements sensed in this period
 					lastState = thisState
 					light_count += lightLevel(lightSensor)				# add the latest light level to the cumulative total ffor this period
 #					printlog("Movement sensor = " + str(thisState) + ".  Light Level = " + str(lightLevel(lightSensor)))  
 					time.sleep(delay)
-				printlog("completed one period")
+#				printlog("completed one period")
 				printdata()
 				movement_count = 0
 				light_count = 0
