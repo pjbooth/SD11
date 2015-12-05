@@ -14,7 +14,7 @@ import psutil
 ## Variables and constants
 delay = 1					# number of seconds delay between readings
 irSensor = 17
-lightSensor = 4
+lightSensor = 18
 lastState = 0
 thisState = 0
 progname = sys.argv[0]						# name of this program
@@ -108,12 +108,12 @@ printlog("Main loop")
 try:
 	while True:
 		thisState = GPIO.input(irSensor)
-		printlog(str(thisState))
 		if lastState == 0 and thisState == 1:
 			printlog("SPOTTED MOVEMENT !!!!")
 		elif lastState == 1 and thisState == 0:
 			printlog(" ")
 		lastState = thisState
+		printlog("Movement sensor = " + str(thisState) + ".  Light Level = " + str(lightLevel(lightSensor)))  
 		time.sleep(delay)
 except KeyboardInterrupt:
 	printlog("Exiting after Ctrl-C")
