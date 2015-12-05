@@ -2,7 +2,7 @@
 #### Name:            SD11Main.py
 #### Programmer:      Paul Booth
 #### Created:         04/12/2015
-#### Purpose:         Read an IR motion sensor
+#### Purpose:         Read an IR motion sensor and light level
 ####--------------------------------------------------------
 import sys
 import time, datetime
@@ -27,6 +27,11 @@ mqtt_connected = 0
 diagnostics = 1
 error_count = 0
 error_limit = 20
+movement_count = 0
+light_count = 0
+reading_count = 0 
+loop_limit = 11
+
 
 
 ## Functions
@@ -39,11 +44,13 @@ def printlog(message):
 		client.publishEvent(event="logs", msgFormat="json", data=myData)
 
 
-def printdata(data):
+def printdata():
+	global movement_count, light_count, reading_count
+	light_average = round(light_count / reading_count)
 	cputemp = getCPUtemperature()				# may as well report on various processor stats while we're at it
 	cpupct = float(psutil.cpu_percent())
 	cpumem = float(psutil.virtual_memory().percent)
-	myData = {'date' : datetime.datetime.now().strftime(dateString), 'irState' : data, 'light' : state, 'cputemp' : cputemp, 'cpupct' : cpupct, 'cpumem' : cpumem}
+	myData = {'date' : datetime.datetime.now().strftime(dateString), 'irState' : movement_count, 'light' : light_average, 'cputemp' : cputemp, 'cpupct' : cpupct, 'cpumem' : cpumem}
 	vizData = {'d' : myData}
 	client.publishEvent(event="data", msgFormat="json", data=myData)
 
@@ -106,21 +113,55 @@ GPIO.setup(lightSensor,GPIO.IN)
 lastState = GPIO.input(irSensor)
 
 ## Main loop 
-printlog("Main loop") 
+printlog("Trying to connect MQ") 
+
 try:
-	while True:
-		thisState = GPIO.input(irSensor)
-		if lastState == 0 and thisState == 1:
-			printlog("SPOTTED MOVEMENT !!!!")
-		elif lastState == 1 and thisState == 0:
-			printlog(" ")
-		lastState = thisState
-		printlog("Movement sensor = " + str(thisState) + ".  Light Level = " + str(lightLevel(lightSensor)))  
-		time.sleep(delay)
-except KeyboardInterrupt:
-	printlog("Exiting after Ctrl-C")
-	
-GPIO.cleanup()
-time.sleep(1)	
+	deviceOptions = ibmiotf.device.ParseConfigFile(iotfFile)	# keeping the IOTF config file locally on device for security
+
+	try:     									# Create the MQTT client, connect to the IOTF broker and start threaded loop in background
+		global client
+		client = ibmiotf.device.Client(deviceOptions)
+		client.connect()
+		mqtt_connected = 1
+		client.commandCallback = myCommandCallback
+
+		try:
+			printlog("Starting main loop") 
+			while True
+				while reading_count < loop_limit:
+					reading_count += 1
+					thisState = GPIO.input(irSensor)
+					if lastState == 0 and thisState == 1:
+						printlog("SPOTTED MOVEMENT !!!!")
+						movement_count += 1								# increment the count of the number of discrete movements sensed in this period
+					lastState = thisState
+					light_count += lightLevel(lightSensor)				# add the latest light level to the cumulative total ffor this period
+#					printlog("Movement sensor = " + str(thisState) + ".  Light Level = " + str(lightLevel(lightSensor)))  
+					time.sleep(delay)
+				printlog("completed one period")
+				printdata()
+				movement_count = 0
+				light_count = 0
+				reading_count = 0 
+
+		except KeyboardInterrupt:
+			printlog("Exiting after Ctrl-C")
+
+		except BaseException as e:
+			printlog("Unexpected fault occurred in main loop: " + str(e))
+
+	except:
+		printlog("Cannot start MQTT client and connect to MQ broker")
+
+except:
+	printlog("Unable to process configuration file " + iotfFile)
+
+finally:
+	if error_count < error_limit:
+		printlog("Closing program as requested")
+	else:
+		printlog("Closing program due to excessive errors")
+	GPIO.cleanup()		# this ensures a clean exit	
+
 
 
