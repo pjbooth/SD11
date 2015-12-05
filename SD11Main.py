@@ -70,6 +70,7 @@ def myCommandCallback(cmd):						# callback example from IOTF documentation
 
 
 def shutdown():
+	GPIO.setmode(GPIO.BCM) 
 	GPIO.cleanup()
 	command = "/usr/bin/sudo /sbin/shutdown -h now"
 	process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
@@ -78,6 +79,7 @@ def shutdown():
 
 
 def reboot():
+	GPIO.setmode(GPIO.BCM) 
 	GPIO.cleanup()
 	command = "/usr/bin/sudo /sbin/shutdown -r now"
 	process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
