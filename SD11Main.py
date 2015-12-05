@@ -127,6 +127,7 @@ try:
 		client.connect()
 		mqtt_connected = 1
 		client.commandCallback = myCommandCallback
+		printlog("Established connection with IOTF")
 
 		try:
 			while True:
