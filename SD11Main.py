@@ -63,8 +63,8 @@ def myCommandCallback(cmd):						# callback example from IOTF documentation
 			new_interval = 0 + int(str(cmd.data))
 			printlog("Altering interval from %d to %d" % (interval, new_interval))
 			interval = new_interval
-		except:
-			printlog("Unable to alter interval because you sent an invalid number: " + str(cmd.data))
+		except Exception as ex:
+			printlog("Unable to alter interval because you sent an invalid number: " + str(cmd.data) + ", which threw the exception:" + ex)
 	elif cmd.command == "loop":
 		try:
 			new_loop = 0 + int(cmd.data)
