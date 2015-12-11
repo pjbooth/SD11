@@ -20,7 +20,7 @@ lightSensor = 18
 lastState = 0
 thisState = 0
 progname = sys.argv[0]						# name of this program
-version = "2.2.9"								# allows me to track which release is running
+version = "2.2.10"								# allows me to track which release is running
 interval = 15								# number of seconds between readings 
 iotfFile = "/home/pi/SD11IOTF.cfg"
 dateString = '%Y/%m/%d %H:%M:%S'
@@ -58,6 +58,20 @@ def printdata():
 
 def myCommandCallback(cmd):						# callback example from IOTF documentation
 	printlog("Command received: " + cmd.command + " with data: %s" % cmd.data)
+	if cmd.command == "interval":
+		try:
+			new_interval = 0 + int(cmd.data)
+			printlog("Altering interval from %d to %d" % (interval, new_interval))
+			interval = new_interval
+		except:
+			printlog("Unable to alter interval because you sent an invalid number: " + str(cmd.data))
+	if cmd.command == "loop":
+		try:
+			new_loop = 0 + int(cmd.data)
+			printlog("Altering loop from %d to %d" % (loop, new_loop))
+			loop = new_loop
+		except:
+			printlog("Unable to alter loop because you sent an invalid number: " + str(cmd.data))
 	if cmd.command == "dkE20s*r19s!u":
 		reboot()
 
