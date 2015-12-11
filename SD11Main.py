@@ -23,7 +23,6 @@ progname = sys.argv[0]						# name of this program
 version = "2.2.10"								# allows me to track which release is running
 interval = 15								# number of seconds between readings 
 iotfFile = "/home/pi/SD11IOTF.cfg"
-dateString = '%Y/%m/%d %H:%M:%S'
 mqtt_connected = 0
 diagnostics = 1
 error_count = 0
@@ -38,10 +37,10 @@ loop_limit = 241						# number of readings in one hour (the reporting interval)
 ## Functions
 
 def printlog(message):
-	logline = progname + " " + version + " " + datetime.datetime.now().strftime(dateString) + ": " + message
+	logline = progname + " " + version + " " + datetime.datetime.now() + ": " + message
 	print logline	
 	if mqtt_connected == 1 and diagnostics == 1:
-		myData={'name' : progname, 'version' : version, 'date' : datetime.datetime.now().strftime(dateString), 'message' : message}
+		myData={'name' : progname, 'version' : version, 'date' : datetime.datetime.now(), 'message' : message}
 		client.publishEvent(event="logs", msgFormat="json", data=myData)
 
 
@@ -51,7 +50,7 @@ def printdata():
 	cputemp = getCPUtemperature()				# may as well report on various processor stats while we're at it
 	cpupct = float(psutil.cpu_percent())
 	cpumem = float(psutil.virtual_memory().percent)
-	myData = {'date' : datetime.datetime.now().strftime(dateString), 'movements' : movement_count, 'light' : light_average, 'cputemp' : cputemp, 'cpupct' : cpupct, 'cpumem' : cpumem}
+	myData = {'date' : datetime.datetime.now(), 'movements' : movement_count, 'light' : light_average, 'cputemp' : cputemp, 'cpupct' : cpupct, 'cpumem' : cpumem}
 	vizData = {'d' : myData}
 	client.publishEvent(event="data", msgFormat="json", data=myData)
 
