@@ -21,7 +21,7 @@ lastState = 0
 thisState = 0
 progname = sys.argv[0]						# name of this program
 version = "2.2.5"								# allows me to track which release is running
-interval = 3								# number of seconds between readings 
+interval = 15								# number of seconds between readings 
 iotfFile = "/home/pi/SD11IOTF.cfg"
 dateString = '%Y/%m/%d %H:%M:%S'
 mqtt_connected = 0
@@ -31,7 +31,7 @@ error_limit = 20
 movement_count = 0
 light_count = 0
 reading_count = 0 
-loop_limit = 11
+loop_limit = 241						# number of readings in one hour (the reporting interval)
 
 
 
