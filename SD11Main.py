@@ -65,19 +65,17 @@ def myCommandCallback(cmd):						# callback example from IOTF documentation
 			interval = new_interval
 		except:
 			printlog("Unable to alter interval because you sent an invalid number: " + str(cmd.data))
-	if cmd.command == "loop":
+	elif cmd.command == "loop":
 		try:
 			new_loop = 0 + int(cmd.data)
 			printlog("Altering loop from %d to %d" % (loop, new_loop))
 			loop = new_loop
 		except:
 			printlog("Unable to alter loop because you sent an invalid number: " + str(cmd.data))
-	if cmd.command == "dkE20s*r19s!u":
+	elif cmd.command == "dkE20s*r19s!u":
 		reboot()
-
 	elif cmd.command == "gsYi21lu-!e8":
 		shutdown()
-
 	else:
 		printlog("Unsupported command: %s" % cmd.command)
 	return 0
