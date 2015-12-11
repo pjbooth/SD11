@@ -60,7 +60,7 @@ def myCommandCallback(cmd):						# callback example from IOTF documentation
 	printlog("Command received: " + cmd.command + " with data: %s" % cmd.data)
 	if cmd.command == "interval":
 		try:
-			new_interval = 0 + int(cmd.data)
+			new_interval = 0 + int(str(cmd.data))
 			printlog("Altering interval from %d to %d" % (interval, new_interval))
 			interval = new_interval
 		except:
