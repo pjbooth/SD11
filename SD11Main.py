@@ -147,9 +147,8 @@ try:
 		except BaseException as e:
 			printlog("Unexpected fault occurred in main loop: " + str(e))
 
-	except:
-		printlog("Cannot start MQTT client and connect to MQ broker")
-
+	except ibmiotf.ConnectionException as e:
+		printlog("Cannot start MQTT client and connect to MQ broker. Exception was: " + str(e))
 except:
 	printlog("Unable to process configuration file " + iotfFile)
 
