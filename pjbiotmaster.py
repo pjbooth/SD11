@@ -78,8 +78,7 @@ def reboot():
 deviceOptions = ibmiotf.device.ParseConfigFile(iotfFile)	# keeping the IOTF config file locally on device for security
 try:     									# Create the MQTT client, connect to the IOTF broker and start threaded loop in background
 	global iotf_client
-	state = 1
-		iotf_client = ibmiotf.device.Client(deviceOptions)
+	iotf_client = ibmiotf.device.Client(deviceOptions)
 	iotf_client.connect()
 	mqtt_connected = 1
 	iotf_client.commandCallback = myCommandCallback
