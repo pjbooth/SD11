@@ -31,7 +31,7 @@ error_limit = 20
 movement_count = 0
 light_count = 0
 reading_count = 0 
-loop_limit = 241						# number of readings in one hour (the reporting interval)
+loop_limit = 21						# number of readings (the reporting interval)
 
 
 
