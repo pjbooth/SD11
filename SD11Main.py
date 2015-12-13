@@ -20,7 +20,7 @@ lightSensor = 18
 lastState = 0
 thisState = 0
 progname = sys.argv[0]						# name of this program
-version = "2.2.11"								# allows me to track which release is running
+version = "2.2.12"								# allows me to track which release is running
 interval = 15								# number of seconds between readings 
 iotfFile = "/home/pi/SD11IOTF.cfg"
 dateString = '%Y/%m/%d %H:%M:%S'
@@ -31,7 +31,7 @@ error_limit = 20
 movement_count = 0
 light_count = 0
 reading_count = 0 
-loop_limit = 21						# number of readings (the reporting interval)
+loop_limit = 5						# number of readings (the reporting interval)
 
 
 
@@ -130,6 +130,7 @@ try:
 			while True:
 				while reading_count < loop_limit:
 					reading_count += 1
+					printlog("Reading %d" % reading_count)
 					thisState = GPIO.input(irSensor)
 					if lastState == 0 and thisState == 1:
 						movement_count += 1								# increment the count of the number of discrete movements sensed in this period
