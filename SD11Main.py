@@ -134,7 +134,6 @@ try:
 			while True:
 				while reading_count < loop_limit:
 					reading_count += 1
-					printlog("Reading %d" % reading_count)
 					thisState = GPIO.input(irSensor)
 					if lastState == 0 and thisState == 1:
 						movement_count += 1								# increment the count of the number of discrete movements sensed in this period
