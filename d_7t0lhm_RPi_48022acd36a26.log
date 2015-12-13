@@ -1,2 +1,0 @@
-2015-12-05 21:27:29,352   ibmiotf.device.Client      CRITICAL Not authorized: s (d:7t0lhm:RPi:48022acd36a26, use-token-auth, CHQ9kUYcaFJk*RQFgQ)
-2015-12-05 21:27:39,155   ibmiotf.device.Client      CRITICAL Operation timed out connecting to the IBM Internet of Things service: 7t0lhm.messaging.internetofthings.ibmcloud.com
