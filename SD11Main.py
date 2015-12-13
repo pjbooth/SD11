@@ -106,7 +106,6 @@ def lightLevel(light_pin):
 		light_level = 80 - (9.5 * math.log(total_time))
 	else:
 		light_level = 0
-	printlog("Light level is %d after %d readings" % (light_level, reading))
 	return light_level                           # subjective light level
 
 ## Initialise 
