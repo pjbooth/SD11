@@ -29,9 +29,9 @@ diagnostics = 1
 error_count = 0
 error_limit = 20
 movement_count = 0
-light_count = 0
 reading_count = 0 
 loop_limit = 40						# number of readings (the reporting interval)
+max_light = 0 						# we need to track the maximum light level in case of a torch flash
 
 
 
@@ -46,12 +46,11 @@ def printlog(message):
 
 
 def printdata():
-	global movement_count, light_count, reading_count
-	light_average = round(light_count / reading_count)
+	global movement_count, max_light, reading_count
 	cputemp = getCPUtemperature()				# may as well report on various processor stats while we're at it
 	cpupct = float(psutil.cpu_percent())
 	cpumem = float(psutil.virtual_memory().percent)
-	myData = {'date' : str(datetime.datetime.now()), 'movements' : movement_count, 'light' : light_average, 'cputemp' : cputemp, 'cpupct' : cpupct, 'cpumem' : cpumem}
+	myData = {'date' : str(datetime.datetime.now()), 'movements' : movement_count, 'light' : max_light, 'cputemp' : cputemp, 'cpupct' : cpupct, 'cpumem' : cpumem}
 	vizData = {'d' : myData}
 	client.publishEvent(event="data", msgFormat="json", data=myData)
 
@@ -92,15 +91,15 @@ def getCPUtemperature():			# Return CPU temperature as a float
 
 def lightLevel(light_pin):
 	reading = 0
-	max_read = 1001						# need to put a limit on the number of reads otherwise it can last tens of minutes
+	max_read = 10000						# need to put a limit on the number of reads otherwise it can last tens of minutes
 	GPIO.setup(light_pin, GPIO.OUT)
 	GPIO.output(light_pin, GPIO.LOW)
 	time.sleep(0.1)
 	starttime = time.time()			# note start time
 	GPIO.setup(light_pin, GPIO.IN)
-	while (GPIO.input(light_pin) == GPIO.LOW) and (reading < max_read):
+	while (GPIO.input(light_pin) == GPIO.LOW) and (reading < max_read):			# do this loop until the capacitor recharges or we exceed the limit
 		reading += 1 
-	if reading < max_read:
+	if reading < max_read:					# If we got a genuine light level
 		endtime = time.time() 			# note end time
 		total_time = 1000 * (endtime - starttime) 
 		light_level = max(0,70 - (20 * math.log(total_time)))		#adjust the light level somewhere between 0 and approx 100
@@ -138,11 +137,10 @@ try:
 					if lastState == 0 and thisState == 1:
 						movement_count += 1								# increment the count of the number of discrete movements sensed in this period
 					lastState = thisState
-					light_count += lightLevel(lightSensor)				# add the latest light level to the cumulative total ffor this period
+					max_light = max(max_light, lightLevel(lightSensor))				# track the maximum light level for this period
 					time.sleep(interval)
 				printdata()
 				movement_count = 0
-				light_count = 0
 				reading_count = 0 
 
 		except KeyboardInterrupt:
