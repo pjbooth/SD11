@@ -105,7 +105,7 @@ def lightLevel(light_pin):
 		light_level = max(0,70 - (20 * math.log(total_time)))		#adjust the light level somewhere between 0 and approx 100
 	else:
 		light_level = 0
-	return light_level                           # subjective light level
+	return round(light_level)                           # subjective light level
 
 ## Initialise 
 printlog("Initialising") 
@@ -141,6 +141,7 @@ try:
 					time.sleep(interval)
 				printdata()
 				movement_count = 0
+				max_light = 0
 				reading_count = 0 
 
 		except KeyboardInterrupt:
