@@ -2,7 +2,7 @@
 #### Name:            SD11Main.py
 #### Programmer:      Paul Booth
 #### Created:         04/12/2015
-#### Purpose:         Read an IR motion sensor and light level
+#### Purpose:         Read an IR motion sensor and light level, then report the levels to IOTF
 ####--------------------------------------------------------
 import os
 import subprocess
@@ -20,18 +20,16 @@ lightSensor = 18
 lastState = 0
 thisState = 0
 progname = sys.argv[0]						# name of this program
-version = "2.2.15"								# allows me to track which release is running
-interval = 1								# number of seconds between readings 
+version = "2.2.16"							# allows me to track which release is running
+interval = 1								# number of seconds between reading the sensors 
 iotfFile = "/home/pi/SD11IOTF.cfg"
 mqtt_connected = 0
 diagnostics = 1
 error_count = 0
 error_limit = 20
 movement_count = 0
-reading_count = 0 
-loop_limit = 600						# number of readings (the reporting interval)
-loop_time = 60							# number of seconds between reports
-max_light = 0 						# we need to track the maximum light level in case of a torch flash
+loop_time = 600								# number of seconds between reports
+max_light = 0 								# we need to track the maximum light level in case of a torch flash
 
 
 
@@ -46,7 +44,7 @@ def printlog(message):
 
 
 def printdata():
-	global movement_count, max_light, reading_count
+	global movement_count, max_light
 	cputemp = getCPUtemperature()				# may as well report on various processor stats while we're at it
 	cpupct = float(psutil.cpu_percent())
 	cpumem = float(psutil.virtual_memory().percent)
@@ -134,7 +132,6 @@ try:
 				t = time.time()						# get the current time
 				t2 = t + loop_time					# compute when we want the next report to take place
 				while t < t2:						# is it time yet to send in the latest report?
-					reading_count += 1
 					thisState = GPIO.input(irSensor)
 					if lastState == 0 and thisState == 1:
 						movement_count += 1								# increment the count of the number of discrete movements sensed in this period
@@ -145,7 +142,6 @@ try:
 				printdata()
 				movement_count = 0
 				max_light = 0
-				reading_count = 0 
 
 		except KeyboardInterrupt:
 			printlog("Exiting after Ctrl-C")
