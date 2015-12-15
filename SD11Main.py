@@ -13,6 +13,8 @@ import paho.mqtt.client as paho        #as instructed by http://mosquitto.org/do
 import ibmiotf.device
 import psutil
 import math
+import re
+import commands
 
 ## Variables and constants
 irSensor = 17
@@ -105,6 +107,16 @@ def lightLevel(light_pin):
 		light_level = 0
 	return round(light_level)                           # subjective light level
 
+def findip():
+#extract the ip address (or addresses) from the ifconfig
+	found_ips = []
+	ips = re.findall( r'[0-9]+(?:\.[0-9]+){3}', commands.getoutput("/sbin/ifconfig"))
+	for ip in ips:
+		if ip.startswith("255") or ip.startswith("127") or ip.endswith("255"):
+			continue
+		found_ips.append(ip)
+	return found_ips
+
 ## Initialise 
 printlog("Initialising") 
 GPIO.setmode(GPIO.BCM) 
@@ -126,6 +138,7 @@ try:
 		mqtt_connected = 1
 		client.commandCallback = myCommandCallback
 		printlog("Established connection with IOTF")
+		printlog("My IP address is %s" % findip())
 
 		try:
 			while True:
