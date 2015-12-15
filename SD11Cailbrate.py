@@ -92,7 +92,7 @@ def getCPUtemperature():			# Return CPU temperature as a float
 
 def lightLevel(light_pin):
 	reading = 0
-	max_read = 1001						# need to put a limit on the number of reads otherwise it can last tens of minutes
+	max_read = 10000						# need to put a limit on the number of reads otherwise it can last tens of minutes
 	GPIO.setup(light_pin, GPIO.OUT)
 	GPIO.output(light_pin, GPIO.LOW)
 	time.sleep(0.1)
