@@ -20,10 +20,9 @@ lightSensor = 18
 lastState = 0
 thisState = 0
 progname = sys.argv[0]						# name of this program
-version = "2.2.12"								# allows me to track which release is running
+version = "2.2.15"								# allows me to track which release is running
 interval = 1								# number of seconds between readings 
 iotfFile = "/home/pi/SD11IOTF.cfg"
-dateString = '%Y/%m/%d %H:%M:%S'
 mqtt_connected = 0
 diagnostics = 1
 error_count = 0
@@ -31,6 +30,7 @@ error_limit = 20
 movement_count = 0
 reading_count = 0 
 loop_limit = 600						# number of readings (the reporting interval)
+loop_time = 60							# number of seconds between reports
 max_light = 0 						# we need to track the maximum light level in case of a torch flash
 
 
@@ -131,7 +131,9 @@ try:
 
 		try:
 			while True:
-				while reading_count < loop_limit:
+				t = time.time()						# get the current time
+				t2 = t + loop_time					# compute when we want the next report to take place
+				while t < t2:						# is it time yet to send in the latest report?
 					reading_count += 1
 					thisState = GPIO.input(irSensor)
 					if lastState == 0 and thisState == 1:
@@ -139,6 +141,7 @@ try:
 					lastState = thisState
 					max_light = max(max_light, lightLevel(lightSensor))				# track the maximum light level for this period
 					time.sleep(interval)
+					t = time.time()					# now get the current time again
 				printdata()
 				movement_count = 0
 				max_light = 0
