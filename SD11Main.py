@@ -103,7 +103,7 @@ def lightLevel(light_pin):
 	if reading < max_read:
 		endtime = time.time() 			# note end time
 		total_time = 1000 * (endtime - starttime) 
-		light_level = 80 - (9.5 * math.log(total_time))
+		light_level = max(0,70 - (20 * math.log(total_time)))		#adjust the light level somewhere between 0 and approx 100
 	else:
 		light_level = 0
 	return light_level                           # subjective light level
