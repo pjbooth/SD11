@@ -21,7 +21,7 @@ lastState = 0
 thisState = 0
 progname = sys.argv[0]						# name of this program
 version = "2.2.12"								# allows me to track which release is running
-interval = 15								# number of seconds between readings 
+interval = 1								# number of seconds between readings 
 iotfFile = "/home/pi/SD11IOTF.cfg"
 dateString = '%Y/%m/%d %H:%M:%S'
 mqtt_connected = 0
@@ -30,7 +30,7 @@ error_count = 0
 error_limit = 20
 movement_count = 0
 reading_count = 0 
-loop_limit = 4						# number of readings (the reporting interval)
+loop_limit = 60						# number of readings (the reporting interval)
 max_light = 0 						# we need to track the maximum light level in case of a torch flash
 
 
