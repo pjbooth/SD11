@@ -124,7 +124,7 @@ try:
 except KeyboardInterrupt:
 	print("Exiting after Ctrl-C")
 
-print("Closing program due to excessive errors")
+print("Closing program")
 GPIO.cleanup()		# this ensures a clean exit	
 
 
