@@ -30,7 +30,7 @@ error_count = 0
 error_limit = 20
 movement_count = 0
 reading_count = 0 
-loop_limit = 60						# number of readings (the reporting interval)
+loop_limit = 600						# number of readings (the reporting interval)
 max_light = 0 						# we need to track the maximum light level in case of a torch flash
 
 
