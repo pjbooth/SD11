@@ -138,7 +138,7 @@ try:
 		mqtt_connected = 1
 		client.commandCallback = myCommandCallback
 		printlog("Established connection with IOTF")
-		printlog("My IP address is %s" % findip())
+		printlog("My IP address is %s. Interval = %d and loop_time = %d" % (findip(), interval, loop_time))
 
 		try:
 			while True:
