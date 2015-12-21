@@ -133,10 +133,10 @@ try:
 
 	try:     									# Create the MQTT client, connect to the IOTF broker and start threaded loop in background
 		global client
-		client = ibmiotf.device.Client(deviceOptions)
-		client.connect()
-		mqtt_connected = 1
-		client.commandCallback = myCommandCallback
+#		client = ibmiotf.device.Client(deviceOptions)
+#		client.connect()
+#		mqtt_connected = 1
+#		client.commandCallback = myCommandCallback
 		printlog("Established connection with IOTF")
 		printlog("My IP address is %s. Interval = %d and loop_time = %d" % (findip(), interval, loop_time))
 
@@ -152,7 +152,7 @@ try:
 					max_light = max(max_light, lightLevel(lightSensor))				# track the maximum light level for this period
 					time.sleep(interval)
 					t = time.time()					# now get the current time again
-				printdata()
+#				printdata()
 				printlog("Light = %d, number of movements = %d" % (max_light,movement_count))
 				movement_count = 0
 				max_light = 0

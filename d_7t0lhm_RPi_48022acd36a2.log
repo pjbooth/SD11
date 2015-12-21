@@ -1,0 +1,38 @@
+2015-12-13 16:32:43,155   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-13 16:39:40,697   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-13 17:29:43,422   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-13 18:48:04,825   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-13 18:55:56,422   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-13 22:53:07,858   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-13 23:07:59,232   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-14 23:21:00,881   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-15 10:15:15,091   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-15 13:47:57,650   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-15 14:02:55,338   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-15 17:22:17,722   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-15 17:39:21,393   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-15 17:42:10,104   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-15 18:07:26,582   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-15 18:19:27,473   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-15 18:37:26,446   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-15 18:59:30,146   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-15 22:08:02,385   ibmiotf.device.Client      ERROR   Unexpected disconnect from the IBM Internet of Things Foundation
+2015-12-15 22:08:02,395   ibmiotf.device.Client      INFO    Messages published : 18, life: 11313s, rate: 1/628.50s
+2015-12-15 22:08:02,402   ibmiotf.device.Client      INFO    Messages received  : 0, life: 11313s, rate: 1/0.00s
+2015-12-15 22:08:03,871   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-15 23:18:58,270   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-15 23:28:28,051   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-15 23:44:36,132   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-15 23:47:00,108   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-16 13:06:01,586   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-16 14:42:42,751   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-16 14:56:11,018   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-16 15:09:43,759   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-16 15:53:38,801   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-16 16:26:15,172   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-16 16:29:10,640   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-16 17:04:07,865   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-16 17:26:18,917   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-16 17:35:05,880   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-16 18:05:32,704   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-16 22:32:43,149   ibmiotf.device.Client      CRITICAL Failed to connect to the IBM Internet of Things service: 7t0lhm.messaging.internetofthings.ibmcloud.com - [Errno 110] Connection timed out
