@@ -36,3 +36,5 @@
 2015-12-16 17:35:05,880   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
 2015-12-16 18:05:32,704   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
 2015-12-16 22:32:43,149   ibmiotf.device.Client      CRITICAL Failed to connect to the IBM Internet of Things service: 7t0lhm.messaging.internetofthings.ibmcloud.com - [Errno 110] Connection timed out
+2015-12-21 22:17:43,208   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
+2015-12-22 15:15:26,603   ibmiotf.device.Client      INFO    Connected successfully: d:7t0lhm:RPi:48022acd36a2
