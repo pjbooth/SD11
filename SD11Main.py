@@ -22,7 +22,7 @@ lightSensor = 18
 lastState = 0
 thisState = 0
 progname = sys.argv[0]						# name of this program
-version = "2.2.19"							# allows me to track which release is running
+version = "2.2.20"							# allows me to track which release is running
 interval = 1								# number of seconds between reading the sensors 
 iotfFile = "/home/pi/SD11IOTF.cfg"
 mqtt_connected = 0
@@ -30,7 +30,7 @@ diagnostics = 1
 error_count = 0
 error_limit = 20
 movement_count = 0
-loop_time = 59								# number of seconds between reports .. the loop seems to creep one second each time
+loop_time = 3599								# number of seconds between reports .. the loop seems to creep one second each time
 max_light = 0 								# we need to track the maximum light level in case of a torch flash
 
 
