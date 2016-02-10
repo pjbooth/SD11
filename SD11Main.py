@@ -22,7 +22,7 @@ lightSensor = 18
 lastState = 0
 thisState = 0
 progname = sys.argv[0]						# name of this program
-version = "2.2.20"							# allows me to track which release is running
+version = "2.2.21"							# allows me to track which release is running
 interval = 1								# number of seconds between reading the sensors 
 iotfFile = "/home/pi/SD11IOTF.cfg"
 mqtt_connected = 0
@@ -137,7 +137,7 @@ try:
 		client.connect()
 		mqtt_connected = 1
 		client.commandCallback = myCommandCallback
-		printlog("My IP address is %s. Interval = %d and loop_time = %d" % (findip(), interval, loop_time))
+#		printlog("My IP address is %s. Interval = %d and loop_time = %d" % (findip(), interval, loop_time))
 
 		try:
 			while True:
